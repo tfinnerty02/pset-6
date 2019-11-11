@@ -199,6 +199,14 @@ Transfer requests must meet the following requirements.
 * the amount must not cause the destination account balance to exceed the field maximum
 * the amount must be less than or equal to account balance
 
+### Data Persistence
+
+Account changes (i.e., creating new accounts, or depositing, withdrawing, or transfering funds) must persist between:
+* separate logins
+* application shutdowns and startups
+
+The file reading and writing to achieve this is already done for you in the `Bank` class. You just need to connect my code to yours to make it work together. **Do not change** the code provided for you in the `Bank.java` file.
+
 ## Deadline
 
 Please read very carefully. Historically, most students lose points on problem sets for simply failing to read the instructions and requirements.
