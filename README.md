@@ -88,15 +88,8 @@ To manually exit the application, enter `-1` for both the `Account No.: ` and `P
 ### Account Menu
 
 After successfully logging into an account, users are greeted with a welcome message and presented with a five-option menu.
-```
-Hello, again, User!
 
-[1] View balance
-[2] Deposit money
-[3] Withdraw money
-[4] Transfer money
-[5] Logout
-```
+![Advanced ATM Account Menu](https://github.com/ap-java-ucvts/pset-6-skeleton/blob/master/images/atm-account-menu.png)
 
 The ATM waits indefinitely for the user to select one of the options. Let's walk through each possibility, plus the scenario in which a user chooses an invalid option.
 
