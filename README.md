@@ -53,10 +53,9 @@ Your ATM application must support the following use cases.
 
 ### Main Menu
 
-After starting the ATM, users are presented with a single prompt.
-```
-Account No.:
-```
+After starting the ATM, a welcome message is displayed and users are presented with a single prompt.
+
+// atm-login-0.png
 
 The ATM waits indefinitely for the user to respond in one of three possible ways. Let's walk through each possibility.
 
