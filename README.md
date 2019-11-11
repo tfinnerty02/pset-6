@@ -158,11 +158,11 @@ The `User` class defines two fields: `firstName` and `lastName`. They must meet 
 
 The `BankAccount` class defines four fields: `pin`, `accountNo`, `balance`, and `accountHolder`. The `accountHolder` is a `User` object, which we've already covered. The other three must meet the following requirements.
 
-| Field       | Allow `null` | Mininum   | Maximum         |
-| ----------- | ------------ | --------- | --------------- |
-| `pin`       | n/a          | 1000      | 9999            |
-| `accountNo` | n/a          | 100000001 | 999999999       |
-| `balance`   | n/a          | 0.00      | 999999999999.99 |
+| Field       | Mininum   | Maximum         |
+| ----------- | --------- | --------------- |
+| `pin`       | 1000      | 9999            |
+| `accountNo` | 100000001 | 999999999       |
+| `balance`   | 0.00      | 999999999999.99 |
 
 #### ATM
 
