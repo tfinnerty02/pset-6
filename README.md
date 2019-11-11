@@ -55,27 +55,27 @@ Your ATM application must support the following use cases.
 
 After starting the ATM, a welcome message is displayed and users are presented with a single prompt.
 
-// atm-login-0.png
+![Advanced ATM Login 0](https://github.com/ap-java-ucvts/pset-6-skeleton/blob/master/images/atm-login-0.png)
 
 The ATM waits indefinitely for the user to respond in one of three possible ways. Let's walk through each possibility.
 
 #### Login to an Existing Account
 
-If the user already has an account, he or she can enter his or her credentials (i.e., account number and PIN) to login.
+If the user already has an account, he or she can enter credentials (i.e., account number and PIN) to login.
 
 If the credentials are valid, the user is logged into the ATM and given access to his or her account.
 
-// atm-login-1.png
+![Advanced ATM Login 1](https://github.com/ap-java-ucvts/pset-6-skeleton/blob/master/images/atm-login-1.png)
 
 Otherwise, if the credentials are invalid, restart the login prompt cycle.
 
-// atm-login-2.png
+![Advanced ATM Login 2](https://github.com/ap-java-ucvts/pset-6-skeleton/blob/master/images/atm-login-2.png)
 
 #### Create an Account
 
 If the user does not have an account, he or she can enter `+` to create a new one.
 
-// atm-new-account.png
+![Advanced ATM Create Account](https://github.com/ap-java-ucvts/pset-6-skeleton/blob/master/images/atm-new-account.png)
 
 Account numbers are assigned automatically. Take a look at the `Bank` class to see how this is done. Check out the [Requirements]() section for details regarding valid names and PINs, and what to do if a user enters an invalid one.
 
@@ -83,7 +83,7 @@ Account numbers are assigned automatically. Take a look at the `Bank` class to s
 
 To manually exit the application, enter `-1` for both the `Account No.: ` and `PIN: ` prompts.
 
-// atm-exit.png
+![Advanced ATM Exit](https://github.com/ap-java-ucvts/pset-6-skeleton/blob/master/images/atm-exit.png)
 
 ### Account Menu
 
@@ -104,7 +104,7 @@ The ATM waits indefinitely for the user to select one of the options. Let's walk
 
 If a user chooses option 1, display his or her current account balance.
 
-// atm-view-balance.png
+![Advanced ATM View Balance](https://github.com/ap-java-ucvts/pset-6-skeleton/blob/master/images/atm-view-balance.png)
 
 Display the balance, and restart the menu cycle.
 
@@ -112,7 +112,7 @@ Display the balance, and restart the menu cycle.
 
 If a user chooses option 2, prompt him or her to enter the amount of money to be deposited.
 
-// atm-deposit.png
+![Advanced ATM Deposit](https://github.com/ap-java-ucvts/pset-6-skeleton/blob/master/images/atm-deposit.png)
 
 Display a transaction status message, and restart the menu cycle. Check out the [Requirements]() section for details on status codes, messages, and the validity of transactions.
 
@@ -120,7 +120,7 @@ Display a transaction status message, and restart the menu cycle. Check out the 
 
 If a user chooses option 3, prompt him or her to enter the amount of money to be withdrawn.
 
-// atm-withdraw.png
+![Advanced ATM Withdraw](https://github.com/ap-java-ucvts/pset-6-skeleton/blob/master/images/atm-withdraw.png)
 
 Display a transaction status message, and restart the menu cycle. Check out the [Requirements]() section for details on status codes, messages, and the validity of transactions.
 
@@ -128,7 +128,7 @@ Display a transaction status message, and restart the menu cycle. Check out the 
 
 If a user chooses option 4, prompt him or her to enter the destination account and the amount of money to be transferred to that account.
 
-// atm-transfer.png
+![Advanced ATM Transfer](https://github.com/ap-java-ucvts/pset-6-skeleton/blob/master/images/atm-transfer.png)
 
 Display a transaction status message, and restart the menu cycle. Check out the [Requirements]() section for details on status codes, messages, and the validity of transactions.
 
@@ -136,13 +136,13 @@ Display a transaction status message, and restart the menu cycle. Check out the 
 
 If a user chooses option 5, logout and return to the login prompt cycle.
 
-// atm-logout.png
+![Advanced ATM Logout](https://github.com/ap-java-ucvts/pset-6-skeleton/blob/master/images/atm-logout.png)
 
 #### Invalid Option
 
 If a user chooses something other then 1, 2, 3, 4, or 5, display an error message and restart the menu cycle.
 
-// atm-invalid-option.png
+![Advanced ATM Invalid Option](https://github.com/ap-java-ucvts/pset-6-skeleton/blob/master/images/atm-invalid-option.png)
 
 ## Requirements
 
