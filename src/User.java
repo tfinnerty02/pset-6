@@ -3,11 +3,24 @@ public class User {
     private String firstName;
     private String lastName;
 
-    ////////////////////////////////////////////////////////////////////////////
-    //                                                                        //
-    // Refer to the Simple ATM tutorial to fill in the details of this class. //
-    //                                                                        //
-    ////////////////////////////////////////////////////////////////////////////
+    public class User {
+
+        private String firstName;
+        private String lastName;
+
+        public User(String firstName, String lastName) {
+            this.firstName = firstName;
+            this.lastName = lastName;
+        }
+
+        public String getFirstName() {
+            return firstName;
+        }
+
+        public String getLastName() {
+            return lastName;
+        }
+    }
 
     /**
      * Formats the first and last name in preparation to be written to the data file.
