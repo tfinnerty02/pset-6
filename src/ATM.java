@@ -23,7 +23,7 @@ public class ATM {
             this.bank = new Bank();
         } catch (IOException e) {
             // cleanup any resources (i.e., the Scanner) and exit
-        	in.close();
+            in .close();
         }
     }
 
@@ -36,11 +36,11 @@ public class ATM {
     public void startup() {
         System.out.println("Welcome to the AIT ATM!\n");
         long accountNo = 0;
-        
+
         while (true) {
             // prompts for account number and checks if it is valid
-        	System.out.print("Account No.: ");
-            String accountNoString = in.nextLine();
+            System.out.print("Account No.: ");
+            String accountNoString = in .nextLine();
 
             // if input is "+", prompts for user information and checks if that information is valid
             // first name
@@ -66,8 +66,7 @@ public class ATM {
                 while (pin < 1000 || pin > 9999) {
                     System.out.print("Invalid entry. Please enter a pin between 1000 and 9999.\n\nPin: ");
                     pin = in .nextInt();
-                }
-                in.nextLine();
+                } in .nextLine();
 
                 User newUser = new User(firstName, lastName);
 
@@ -81,6 +80,7 @@ public class ATM {
             } else {
 
                 accountNo = Long.parseLong(accountNoString);
+                System.out.println("Long of AccountNo: " + accountNo);
                 System.out.print("Pin: ");
                 int pin = in .nextInt();
 
@@ -120,9 +120,10 @@ public class ATM {
 
     // for the error, the getter is the issue
     public boolean isValidLogin(long accountNo, int pin) {
-    	System.out.println(accountNo);
-    	System.out.println(activeAccount.getAccountNo());
-    	System.out.println(activeAccount.getPin());
+        System.out.println(accountNo);
+        System.out.println(pin);
+        System.out.println(activeAccount.getAccountNo());
+        System.out.println(activeAccount.getPin());
         return accountNo == activeAccount.getAccountNo() && pin == activeAccount.getPin();
     }
 
