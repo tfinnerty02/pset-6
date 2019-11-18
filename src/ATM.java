@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.Scanner;
 
 public class ATM {
@@ -15,9 +16,15 @@ public class ATM {
     public static final int INSUFFICIENT = 1;
     public static final int SUCCESS = 2;
 
-    public ATM() { in = new Scanner(System.in);
+    public ATM() {
+        this.in = new Scanner(System.in);
 
-        activeAccount = new BankAccount(1234, new User("Ryan", "Wilson"));
+        try {
+            this.bank = new Bank();
+        } catch (IOException e) {
+            // cleanup any resources (i.e., the Scanner) and exit
+        	in.close();
+        }
     }
 
     // try {
@@ -29,20 +36,14 @@ public class ATM {
     public void startup() {
         System.out.println("Welcome to the AIT ATM!\n");
         long accountNo = 0;
-
+        
         while (true) {
             // prompts for account number and checks if it is valid
         	System.out.print("Account No.: ");
-            String accountNoString = in .nextLine();
-            while (!accountNoString.equals("+") && (Long.parseLong(accountNoString) < 100000001 && Long.parseLong(accountNoString) > 999999999)) {
-                System.out.println("Invalid entry. Please enter a pin between 100000001 and 999999999.\n\nFirst Name: ");
-                accountNoString = in .nextLine();
-            }
-            if (!accountNoString.equals("+")) {
-                accountNo = Long.parseLong(accountNoString);
-            }
+            String accountNoString = in.nextLine();
 
             // if input is "+", prompts for user information and checks if that information is valid
+            // first name
             if (accountNoString.equals("+")) {
                 System.out.print("\nFirst Name: ");
                 String firstName = in .nextLine();
@@ -50,18 +51,23 @@ public class ATM {
                     System.out.println("Invalid entry. Please enter a name with a maximum length of 20.\n\nFirst Name: ");
                     firstName = in .nextLine();
                 }
+
+                // last name
                 System.out.print("Last Name: ");
                 String lastName = in .nextLine();
                 while (lastName.length() < 0 || lastName.length() > 30 || lastName == null) {
                     System.out.println("Invalid entry. Please enter a name with a maximum length of 30.\n\nLast Name: ");
                     lastName = in .nextLine();
                 }
+
+                // pin
                 System.out.print("Pin: ");
                 int pin = in .nextInt();
                 while (pin < 1000 || pin > 9999) {
                     System.out.print("Invalid entry. Please enter a pin between 1000 and 9999.\n\nPin: ");
                     pin = in .nextInt();
                 }
+                in.nextLine();
 
                 User newUser = new User(firstName, lastName);
 
@@ -70,7 +76,7 @@ public class ATM {
                 long newAccountNo = newAccount.getAccountNo();
 
                 System.out.println("\nThank you. Your account number is " + newAccountNo +
-                    ". Please login to access your newly created account");
+                    ". Please login to access your newly created account.\n");
 
             } else {
 
@@ -112,7 +118,11 @@ public class ATM {
         }
     }
 
+    // for the error, the getter is the issue
     public boolean isValidLogin(long accountNo, int pin) {
+    	System.out.println(accountNo);
+    	System.out.println(activeAccount.getAccountNo());
+    	System.out.println(activeAccount.getPin());
         return accountNo == activeAccount.getAccountNo() && pin == activeAccount.getPin();
     }
 
