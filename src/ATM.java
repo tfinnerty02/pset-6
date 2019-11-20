@@ -172,10 +172,10 @@ public class ATM {
     }
 
     public void createAccount() {
-        System.out.print("\nFirst name: ");
+        System.out.print("\nFirst Name: ");
         String firstName = in .next();
 
-        System.out.print("Last name: ");
+        System.out.print("Last Name: ");
         String lastName = in .next();
 
         System.out.print("Pin: ");
@@ -194,7 +194,9 @@ public class ATM {
         bank.save();
     }
 
-    public static boolean isNumeric(String testStr) {
+    public 
+
+    public boolean isNumeric(String testStr) {
         try {
             int integer = Integer.parseInt(testStr);
         } catch (NumberFormatException | NullPointerException nfe) {
