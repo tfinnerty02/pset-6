@@ -8,7 +8,7 @@ public class BankAccount {
     private long accountNo;
     private double balance;
     private User accountHolder;
-    
+
     private String formatBalance() {
         return String.format("%1$15s", balance);
     }
@@ -27,12 +27,12 @@ public class BankAccount {
         this.accountHolder = accountHolder;
     }
 
-//    public BankAccount(int pin, long accountNo, User accountHolder) {
-//        this.pin = pin;
-//        this.accountNo = BankAccount.prevAccountNo++;
-//        this.balance = 0.0;
-//        this.accountHolder = accountHolder;
-//    }
+    //    public BankAccount(int pin, long accountNo, User accountHolder) {
+    //        this.pin = pin;
+    //        this.accountNo = BankAccount.prevAccountNo++;
+    //        this.balance = 0.0;
+    //        this.accountHolder = accountHolder;
+    //    }
 
     public int getPin() {
         return pin;
