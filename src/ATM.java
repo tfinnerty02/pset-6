@@ -6,6 +6,7 @@ public class ATM {
 	private Scanner in;
 	private BankAccount activeAccount;
 	private Bank bank;
+	private BankAccount transferAccount;
 
 	public static final int VIEW = 1;
 	public static final int DEPOSIT = 2;
@@ -55,6 +56,17 @@ public class ATM {
 
 		System.out.print("Account No.: ");
 		String accountNoString = in.next();
+		// define and add condition for valid acct. no; consolidate
+		while (!isNumeric(accountNoString)) {
+			System.out.print("\nInvalid entry.\n\nAccount No.: ");
+			accountNoString = in.next();
+		}
+		System.out.print("Pin: ");
+		pin = in.nextInt();
+		while (!isValidPin(1000, 9999, pin)) {
+			System.out.print("\nInvalid entry.\n\nPin: ");
+			pin = in.nextInt();
+		}
 
 		while (creatingAccount) {
 			if (accountNoString.equals("+")) {
@@ -69,8 +81,6 @@ public class ATM {
 		accountNo = Long.parseLong(accountNoString);
 
 		while (true) {
-			System.out.print("Pin: ");
-			pin = in.nextInt();
 
 			if (accountNo == -1 && pin == -1) {
 				System.out.print("\nGoodbye!");
@@ -98,9 +108,8 @@ public class ATM {
 						bank.save();
 						break;
 					case TRANSFER:
-						System.out.println("h");
-						// transfer details
-						// bank.save();
+						transfer();
+						bank.save();
 					case LOGOUT:
 						validLogin = false;
 						break;
@@ -164,11 +173,31 @@ public class ATM {
 		}
 	}
 
+	public void transfer() {
+		System.out.print("\nEnter destination account number: ");
+		long toAccountNo = in.nextLong();
+
+		System.out.print("Enter transfer amount: ");
+		double transferAmount = in.nextDouble();
+
+		// code to make sure transfer amount is valid
+		if (transferAmount <= 0) {
+			System.out.println("\nTransfer rejected. Amount must be greater than $0.00.");
+		} else if (activeAccount.getDoubleBalance() < transferAmount) {
+			System.out.println("\nTransfer rejected. Insufficient funds.");
+		} else {
+			System.out.println("\nTransfer accepted.");
+			activeAccount.withdraw(transferAmount);
+			transferAccount = bank.getAccount(toAccountNo);
+			transferAccount.deposit(transferAmount);
+		}
+
+	}
+
 	public void shutdown() {
 		if (in != null) {
 			in.close();
 		}
-
 		System.out.println("\nGoodbye!");
 		System.exit(0);
 	}
