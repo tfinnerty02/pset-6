@@ -56,11 +56,11 @@ public class ATM {
 
 		System.out.print("Account No.: ");
 		String accountNoString = in.next();
-		// define and add condition for valid acct. no; consolidate
-		while (!isNumeric(accountNoString)) {
+		while (!isValidAcctNo(100000001, 999999999, accountNoString)) {
 			System.out.print("\nInvalid entry.\n\nAccount No.: ");
 			accountNoString = in.next();
 		}
+
 		System.out.print("Pin: ");
 		pin = in.nextInt();
 		while (!isValidPin(1000, 9999, pin)) {
@@ -72,6 +72,10 @@ public class ATM {
 			if (accountNoString.equals("+")) {
 				createAccount();
 				System.out.print("\nAccount No.: ");
+				while (!isValidAcctNo(100000001, 999999999, accountNoString)) {
+					System.out.print("\nInvalid entry.\n\nAccount No.: ");
+					accountNoString = in.next();
+				}
 				accountNoString = in.next();
 			} else if (!(accountNoString.equals("+")) && isNumeric(accountNoString)) {
 				creatingAccount = false;
@@ -112,6 +116,7 @@ public class ATM {
 						bank.save();
 					case LOGOUT:
 						validLogin = false;
+						startup();
 						break;
 					default:
 						System.out.println("\nInvalid selection.\n");
@@ -203,6 +208,7 @@ public class ATM {
 	}
 
 	public void createAccount() {
+		// prompts for first name and checks if it is valid
 		System.out.print("\nFirst Name: ");
 		String firstName = in.next();
 		while (!isValidFirst(1, 20, firstName)) {
@@ -210,6 +216,7 @@ public class ATM {
 			firstName = in.next();
 		}
 
+		// prompts for last name and checks if it is valid
 		System.out.print("Last Name: ");
 		String lastName = in.next();
 		while (!isValidLast(1, 30, lastName)) {
@@ -217,6 +224,7 @@ public class ATM {
 			lastName = in.next();
 		}
 
+		// prompts for pin and checks if it is valid
 		System.out.print("Pin: ");
 		int pin = in.nextInt();
 		while (!isValidPin(1000, 9999, pin)) {
@@ -255,6 +263,17 @@ public class ATM {
 	public boolean isValidPin(int min, int max, int pin) {
 		if (pin >= min && pin <= max) {
 			return true;
+		}
+		return false;
+	}
+
+	public boolean isValidAcctNo(long min, long max, String accountNo) {
+		try {
+			if (Long.parseLong(accountNo) >= min && Long.parseLong(accountNo) <= max && isNumeric(accountNo)) {
+				return true;
+			}
+		} catch (NumberFormatException | NullPointerException nfe) {
+			return false;
 		}
 		return false;
 	}
