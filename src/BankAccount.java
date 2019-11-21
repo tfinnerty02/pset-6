@@ -47,7 +47,7 @@ public class BankAccount {
 
 		return currency.format(balance);
 	}
-	
+
 	public double getDoubleBalance() {
 		return balance;
 	}

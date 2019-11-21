@@ -115,6 +115,7 @@ public class ATM {
 					shutdown();
 				} else {
 					System.out.println("\nInvalid account number and/or PIN.\n");
+					startup();
 				}
 			}
 		}
@@ -135,7 +136,7 @@ public class ATM {
 	}
 
 	public void showBalance() {
-		System.out.println("\nCurrent balance: " + activeAccount.getBalance());
+		System.out.println("\nCurrent balance: " + activeAccount.getBalance() + "\n");
 	}
 
 	public void deposit() {
@@ -182,12 +183,12 @@ public class ATM {
 
 		// code to make sure transfer amount is valid
 		if (transferAmount <= 0) {
-			System.out.println("\nTransfer rejected. Amount must be greater than $0.00.");
+			System.out.println("\nTransfer rejected. Amount must be greater than $0.00.\n");
 		} else if (activeAccount.getDoubleBalance() < transferAmount) {
-			System.out.println("\nTransfer rejected. Insufficient funds.");
+			System.out.println("\nTransfer rejected. Insufficient funds.\n");
 		} else if (transferAccount.getDoubleBalance() + transferAmount > 999999999999.99) {
 			System.out.println(
-					"\nTransfer rejected. Amount would cause destination balance to exceed $999,999,999,999.99.");
+					"\nTransfer rejected. Amount would cause destination balance to exceed $999,999,999,999.99.\n");
 		} else {
 			System.out.println("\nTransfer accepted.\n");
 			activeAccount.withdraw(transferAmount);
@@ -250,7 +251,7 @@ public class ATM {
 	}
 
 	public boolean isValidPin(int min, int max, int pin) {
-		if (pin >= min && pin <= max) {
+		if (pin == -1 || pin >= min && pin <= max) {
 			return true;
 		}
 		return false;
@@ -258,7 +259,9 @@ public class ATM {
 
 	public boolean isValidAcctNo(long min, long max, String accountNo) {
 		try {
-			if (Long.parseLong(accountNo) >= min && Long.parseLong(accountNo) <= max && isNumeric(accountNo)) {
+			transferAccount = bank.getAccount(Long.parseLong(accountNo));
+			if (Long.parseLong(accountNo) == -1
+					|| Long.parseLong(accountNo) >= min && Long.parseLong(accountNo) <= max && isNumeric(accountNo)) {
 				return true;
 			}
 		} catch (NumberFormatException | NullPointerException nfe) {
