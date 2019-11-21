@@ -18,23 +18,10 @@ public class ATM {
 	public static final int INSUFFICIENT = 1;
 	public static final int SUCCESS = 2;
 
-	// sets restrictions on acceptable inputs
 	public static final int FIRST_NAME_MIN_WIDTH = 1;
 	public static final int FIRST_NAME_WIDTH = 20;
 	public static final int LAST_NAME_MIN_WIDTH = 1;
 	public static final int LAST_NAME_WIDTH = 30;
-
-	public static final int PIN_WIDTH = 4;
-	public static final int PIN_MIN = 1000;
-	public static final int PIN_MAX = 9999;
-
-	public static final int ACCOUNT_NO_WIDTH = 9;
-	public static final long ACCOUNT_NO_MIN = 100000001;
-	public static final long ACCOUNT_NO_MAX = 999999999;
-
-	public static final int BALANCE_WIDTH = 15;
-	public static final double BALANCE_MIN = 0.00;
-	public static final double BALANCE_MAX = 999999999999.99;
 
 	public ATM() {
 		this.in = new Scanner(System.in);
@@ -51,28 +38,20 @@ public class ATM {
 		System.out.println("Welcome to the AIT ATM!\n");
 		long accountNo;
 		int pin;
-
 		boolean creatingAccount = true;
 
 		System.out.print("Account No.: ");
 		String accountNoString = in.next();
-		while (!isValidAcctNo(100000001, 999999999, accountNoString)) {
+		while (!accountNoString.contentEquals("+") && !isValidAcctNo(100000001, 999999999, accountNoString)) {
 			System.out.print("\nInvalid entry.\n\nAccount No.: ");
 			accountNoString = in.next();
-		}
-
-		System.out.print("Pin: ");
-		pin = in.nextInt();
-		while (!isValidPin(1000, 9999, pin)) {
-			System.out.print("\nInvalid entry.\n\nPin: ");
-			pin = in.nextInt();
 		}
 
 		while (creatingAccount) {
 			if (accountNoString.equals("+")) {
 				createAccount();
 				System.out.print("\nAccount No.: ");
-				while (!isValidAcctNo(100000001, 999999999, accountNoString)) {
+				while (!accountNoString.contentEquals("+") && !isValidAcctNo(100000001, 999999999, accountNoString)) {
 					System.out.print("\nInvalid entry.\n\nAccount No.: ");
 					accountNoString = in.next();
 				}
@@ -80,6 +59,13 @@ public class ATM {
 			} else if (!(accountNoString.equals("+")) && isNumeric(accountNoString)) {
 				creatingAccount = false;
 			}
+		}
+
+		System.out.print("Pin: ");
+		pin = in.nextInt();
+		while (!isValidPin(1000, 9999, pin)) {
+			System.out.print("\nInvalid entry.\n\nPin: ");
+			pin = in.nextInt();
 		}
 
 		accountNo = Long.parseLong(accountNoString);
@@ -114,6 +100,7 @@ public class ATM {
 					case TRANSFER:
 						transfer();
 						bank.save();
+						break;
 					case LOGOUT:
 						validLogin = false;
 						startup();
@@ -133,7 +120,6 @@ public class ATM {
 		}
 	}
 
-	// for the error, the getter is the issue
 	public boolean isValidLogin(long accountNo, int pin) {
 		return accountNo == activeAccount.getAccountNo() && pin == activeAccount.getPin();
 	}
@@ -159,6 +145,9 @@ public class ATM {
 		int status = activeAccount.deposit(amount);
 		if (status == ATM.INVALID) {
 			System.out.println("\nDeposit rejected. Amount must be greater than $0.00.\n");
+		} else if (activeAccount.getDoubleBalance() + amount > 999999999999.99) {
+			System.out.println("\nDeposit rejected. Amount would cause balance to exceed $999,999,999,999.99.\n");
+			activeAccount.withdraw(amount);
 		} else if (status == ATM.SUCCESS) {
 			System.out.println("\nDeposit accepted.\n");
 		}
@@ -181,6 +170,12 @@ public class ATM {
 	public void transfer() {
 		System.out.print("\nEnter destination account number: ");
 		long toAccountNo = in.nextLong();
+		try {
+			transferAccount = bank.getAccount(toAccountNo);
+		} catch (NumberFormatException | NullPointerException nfe) {
+			System.out.println("\nTransfer rejected. Destination account not found.");
+			return;
+		}
 
 		System.out.print("Enter transfer amount: ");
 		double transferAmount = in.nextDouble();
@@ -190,13 +185,14 @@ public class ATM {
 			System.out.println("\nTransfer rejected. Amount must be greater than $0.00.");
 		} else if (activeAccount.getDoubleBalance() < transferAmount) {
 			System.out.println("\nTransfer rejected. Insufficient funds.");
+		} else if (transferAccount.getDoubleBalance() + transferAmount > 999999999999.99) {
+			System.out.println(
+					"\nTransfer rejected. Amount would cause destination balance to exceed $999,999,999,999.99.");
 		} else {
-			System.out.println("\nTransfer accepted.");
+			System.out.println("\nTransfer accepted.\n");
 			activeAccount.withdraw(transferAmount);
-			transferAccount = bank.getAccount(toAccountNo);
 			transferAccount.deposit(transferAmount);
 		}
-
 	}
 
 	public void shutdown() {
@@ -232,17 +228,10 @@ public class ATM {
 			pin = in.nextInt();
 		}
 
-		// User newUser = new User(firstName, lastName);
-		//
-		// BankAccount newAccount = bank.createAccount(pin, newUser);
-		//
-		// long newAccountNo = newAccount.getAccountNo();
-
 		activeAccount = bank.createAccount(pin, new User(firstName, lastName));
 
 		System.out.print("\nThank you. Your account number is " + activeAccount.getAccountNo()
-				+ ". Please login to access your newly created account.\n");
-
+				+ ".\nPlease login to access your newly created account.\n");
 		bank.save();
 	}
 
