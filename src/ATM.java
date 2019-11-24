@@ -73,7 +73,7 @@ public class ATM {
 		while (true) {
 
 			if (accountNo == -1 && pin == -1) {
-				System.out.print("\nGoodbye!");
+				shutdown();
 				return;
 			}
 
@@ -112,6 +112,7 @@ public class ATM {
 				}
 			} else {
 				if (accountNo == -1 && pin == -1) {
+					System.out.println("h");
 					shutdown();
 				} else {
 					System.out.println("\nInvalid account number and/or PIN.\n");
