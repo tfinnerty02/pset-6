@@ -230,7 +230,7 @@ public class ATM {
 			pin = in.nextInt();
 		}
 
-		activeAccount = bank.createAccount(pin, new User(firstName, lastName));
+		 activeAccount = bank.createAccount(pin, new User(firstName, lastName));
 
 		System.out.print("\nThank you. Your account number is " + activeAccount.getAccountNo()
 				+ ".\nPlease login to access your newly created account.\n");
